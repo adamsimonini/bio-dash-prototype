@@ -200,9 +200,53 @@
 
             populateChemicalDropdown(filteredChemicals);
 
-            // Clear chemical selection and filters
-            chemicalSelect.value = "";
-            updateAvailableFilters(null);
+            if (selectedGroup === "") {
+              // Reset to initial state when "All groups" is selected
+              chemicalSelect.value = "";
+              document.getElementById("chemical-group").textContent = "";
+
+              // Show all matrix options
+              document
+                .querySelectorAll("#matrix-filters label")
+                .forEach((label) => {
+                  label.classList.remove("hidden");
+                });
+
+              // Show all units options
+              document
+                .querySelectorAll("#units-filters label")
+                .forEach((label) => {
+                  label.classList.remove("hidden");
+                });
+
+              // Clear period filters
+              document.getElementById("period-filters").innerHTML = "";
+
+              // Show all stats options
+              document
+                .querySelectorAll("#stats-filters label")
+                .forEach((label) => {
+                  label.classList.remove("hidden");
+                });
+
+              // Uncheck all radio buttons and checkboxes
+              document
+                .querySelectorAll('input[type="radio"], input[type="checkbox"]')
+                .forEach((input) => {
+                  if (input.name !== "group") {
+                    // Don't uncheck the "All groups" radio
+                    input.checked = false;
+                  }
+                });
+            } else if (filteredChemicals.length === 1) {
+              // If there's only one chemical in the group, select it automatically
+              chemicalSelect.value = filteredChemicals[0].chemical.name;
+              updateAvailableFilters(filteredChemicals[0]);
+            } else {
+              // Clear chemical selection and filters
+              chemicalSelect.value = "";
+              updateAvailableFilters(null);
+            }
           });
         });
 

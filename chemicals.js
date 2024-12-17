@@ -115,6 +115,71 @@ const chemicals = [
       },
     ],
   },
+  {
+    chemical_group: "metals and trace elements",
+    chemical: {
+      name: "cadmium",
+      cas: "7440-43-9",
+    },
+    biomarker: {
+      name: "cadmium",
+      cas: "7440-43-9",
+    },
+    info_link: "",
+    notes: "",
+    samples: [
+      {
+        matrix: "blood",
+        age_range: "6 to 79",
+        group: "NA",
+        chms_cycle_years: "1 (2007–2009)",
+        sample_data: {
+          number_pools: null,
+          pct_less_lod_pooled: null,
+          minimum: null,
+          maximum: null,
+          mean: null,
+          mean_cv: null,
+          number_samples: null,
+          pct_less_lod: null,
+          df: null,
+          gm: null,
+          percentiles: {
+            p10: null,
+            p50: null,
+            p90: null,
+            p95: null,
+          },
+        },
+        measurement: {
+          lod: null,
+          units: null,
+        },
+        metadata: {
+          number: 201,
+          content_type: "content",
+          data_type: "NA",
+        },
+        statistical_values: {
+          gm: {
+            value: null,
+            low: null,
+            high: null,
+          },
+          p50: {
+            value: null,
+            low: null,
+            high: null,
+          },
+          p95: {
+            value: null,
+            low: null,
+            high: null,
+          },
+        },
+      },
+    ],
+  },
   // Keep all other chemicals as they are for now
   {
     chemical_group: "plasticizers: phthalates",
