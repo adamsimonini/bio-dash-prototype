@@ -19,11 +19,66 @@
         margin: 5px 0 20px 0;
         font-size: 0.9em;
       }
+      #group-filters {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      #group-filters label {
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
     <div class="filter-section">
       <h1>Chemical selection</h1>
+
+      <div class="filter-group">
+        <h3>Chemical group</h3>
+        <p class="subtitle">Filter by chemical type (optional)</p>
+        <div id="group-filters">
+          <label
+            ><input type="radio" name="group" value="" checked /> All
+            groups</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="group"
+              value="metals and trace elements"
+            />
+            Metals and trace elements</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="group"
+              value="plasticizers: phthalates"
+            />
+            Plasticizers: phthalates</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="group"
+              value="polycyclic aromatic hydrocarbons (PAHs)"
+            />
+            Polycyclic aromatic hydrocarbons (PAHs)</label
+          >
+          <label
+            ><input type="radio" name="group" value="dioxins and furans" />
+            Dioxins and furans</label
+          >
+          <label
+            ><input
+              type="radio"
+              name="group"
+              value="polychlorinated biphenyls (PCBs)"
+            />
+            Polychlorinated biphenyls (PCBs)</label
+          >
+        </div>
+      </div>
 
       <div class="filter-group">
         <label for="chemical-select">Select or type a chemical</label>
@@ -37,9 +92,19 @@
         <h3>Matrix</h3>
         <p class="subtitle">Sampling medium</p>
         <div id="matrix-filters">
-          <label><input type="checkbox" value="blood" /> Blood</label>
-          <label><input type="checkbox" value="urine" /> Urine</label>
-          <label><input type="checkbox" value="plasma" /> Plasma</label>
+          <label
+            ><input type="radio" name="matrix" value="blood" /> Blood</label
+          >
+          <label
+            ><input type="radio" name="matrix" value="urine" /> Urine</label
+          >
+          <label
+            ><input type="radio" name="matrix" value="plasma" /> Plasma</label
+          >
+          <label
+            ><input type="radio" name="matrix" value="pooled serum" /> Pooled
+            serum</label
+          >
         </div>
       </div>
 
@@ -47,12 +112,23 @@
         <h3>Units</h3>
         <p class="subtitle">Measurement of sampling medium</p>
         <div id="units-filters">
-          <label><input type="checkbox" value="ug/L" /> ug/L</label>
+          <label><input type="radio" name="units" value="ug/L" /> ug/L</label>
           <label
-            ><input type="checkbox" value="ug/g creatinine" /> ug/g
+            ><input type="radio" name="units" value="ug/g creatinine" /> ug/g
             creatinine</label
           >
-          <label><input type="checkbox" value="ng/g lipid" /> ng/g lipid</label>
+          <label
+            ><input type="radio" name="units" value="ng/g lipid" /> ng/g
+            lipid</label
+          >
+          <label
+            ><input type="radio" name="units" value="pg/g lipid" /> pg/g
+            lipid</label
+          >
+          <label
+            ><input type="radio" name="units" value="ng/g serum" /> ng/g
+            serum</label
+          >
         </div>
       </div>
 
@@ -66,12 +142,21 @@
         <h3>Statistics</h3>
         <p class="subtitle">Relevant demographics to include</p>
         <div id="stats-filters">
-          <label><input type="checkbox" value="gm" /> Geometric mean</label>
-          <label><input type="checkbox" value="p50" /> 50th percentile</label>
-          <label><input type="checkbox" value="p95" /> 95th percentile</label>
           <label
-            ><input type="checkbox" value="ci" /> 95% confidence interval (95%
-            CI)</label
+            ><input type="radio" name="stats" value="gm" /> Geometric
+            mean</label
+          >
+          <label
+            ><input type="radio" name="stats" value="p50" /> 50th
+            percentile</label
+          >
+          <label
+            ><input type="radio" name="stats" value="p95" /> 95th
+            percentile</label
+          >
+          <label
+            ><input type="radio" name="stats" value="ci" /> 95% confidence
+            interval (95% CI)</label
           >
         </div>
       </div>
@@ -83,12 +168,43 @@
     <script>
       // Populate chemical dropdown
       const chemicalSelect = document.getElementById("chemical-select");
-      chemicals.forEach((chem) => {
-        const option = document.createElement("option");
-        option.value = chem.chemical.name;
-        option.textContent = `${chem.chemical.name} (${chem.biomarker.name})`;
-        chemicalSelect.appendChild(option);
-      });
+      function populateChemicalDropdown(filteredChemicals) {
+        // Clear existing options except the first one
+        while (chemicalSelect.options.length > 1) {
+          chemicalSelect.remove(1);
+        }
+
+        // Add filtered chemicals
+        filteredChemicals.forEach((chem) => {
+          const option = document.createElement("option");
+          option.value = chem.chemical.name;
+          option.textContent = `${chem.chemical.name} (${chem.biomarker.name})`;
+          chemicalSelect.appendChild(option);
+        });
+      }
+
+      // Initial population with all chemicals
+      populateChemicalDropdown(chemicals);
+
+      // Handle chemical group selection change
+      document
+        .querySelectorAll('#group-filters input[type="radio"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", (e) => {
+            const selectedGroup = e.target.value;
+            const filteredChemicals = selectedGroup
+              ? chemicals.filter(
+                  (chem) => chem.chemical_group === selectedGroup
+                )
+              : chemicals;
+
+            populateChemicalDropdown(filteredChemicals);
+
+            // Clear chemical selection and filters
+            chemicalSelect.value = "";
+            updateAvailableFilters(null);
+          });
+        });
 
       // Update available filters based on selected chemical
       function updateAvailableFilters(chemical) {
@@ -106,10 +222,8 @@
 
           if (visibleInputs.length === 1) {
             visibleInputs[0].checked = true;
-            visibleInputs[0].disabled = true;
           } else {
             inputs.forEach((input) => {
-              input.disabled = false;
               input.checked = false;
             });
           }
@@ -117,59 +231,74 @@
 
         // Update matrix filters
         const matrixInputs = document.querySelectorAll("#matrix-filters input");
+        // Get unique matrices from all samples
+        const matrices = [
+          ...new Set(chemical.samples.map((sample) => sample.matrix)),
+        ];
         matrixInputs.forEach((input) => {
           const label = input.parentElement;
-          label.classList.toggle("hidden", input.value !== chemical.matrix);
+          label.classList.toggle("hidden", !matrices.includes(input.value));
         });
         handleSingleOption(matrixInputs);
 
         // Update units filters
         const unitsInputs = document.querySelectorAll("#units-filters input");
+        // Get unique units from all samples
+        const units = [
+          ...new Set(
+            chemical.samples
+              .map((sample) => {
+                let unit = sample.measurement.units;
+                if (unit === "µg As/L") unit = "ug/L";
+                if (unit === "µg/g creatinine") unit = "ug/g creatinine";
+                return unit ? unit.replace("µg", "ug") : null;
+              })
+              .filter(Boolean)
+          ),
+        ];
         unitsInputs.forEach((input) => {
           const label = input.parentElement;
-          // Convert units for comparison
-          let chemicalUnit = chemical.measurement.units;
-          if (chemicalUnit === "µg As/L") chemicalUnit = "ug/L";
-          if (chemicalUnit === "µg/g creatinine")
-            chemicalUnit = "ug/g creatinine";
-          // Add more unit conversions as needed
-          chemicalUnit = chemicalUnit.replace("µg", "ug"); // Replace all µg with ug
-
-          label.classList.toggle("hidden", input.value !== chemicalUnit);
+          label.classList.toggle("hidden", !units.includes(input.value));
         });
         handleSingleOption(unitsInputs);
 
         // Update period filters
         const periodFiltersDiv = document.getElementById("period-filters");
-        // Clear existing period filters
         periodFiltersDiv.innerHTML = "";
-        // Create checkbox for the chemical's cycle
-        const label = document.createElement("label");
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.value = chemical.chms_cycle_years;
-        label.appendChild(input);
-        label.appendChild(
-          document.createTextNode(` ${chemical.chms_cycle_years}`)
-        );
-        periodFiltersDiv.appendChild(label);
+        // Get unique collection periods from all samples
+        const periods = [
+          ...new Set(chemical.samples.map((sample) => sample.chms_cycle_years)),
+        ];
 
-        // Since there's only one period per chemical, always handle as single option
+        // Create checkbox for each unique period
+        periods.forEach((period) => {
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "checkbox";
+          input.value = period;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(` ${period}`));
+          periodFiltersDiv.appendChild(label);
+        });
+
         const periodInputs = document.querySelectorAll("#period-filters input");
         handleSingleOption(periodInputs);
 
         // Update stats filters
         const statsInputs = document.querySelectorAll("#stats-filters input");
+        // Get first sample for stats (we can update this later to check all samples)
+        const firstSample = chemical.samples[0];
         statsInputs.forEach((input) => {
           const label = input.parentElement;
           let hasValue = false;
           if (input.value === "gm")
-            hasValue = chemical.statistical_values.gm.value !== null;
+            hasValue = firstSample.statistical_values.gm.value !== null;
           if (input.value === "p50")
-            hasValue = chemical.statistical_values.p50.value !== null;
+            hasValue = firstSample.statistical_values.p50.value !== null;
           if (input.value === "p95")
-            hasValue = chemical.statistical_values.p95.value !== null;
-          if (input.value === "ci") hasValue = chemical.sample_data.df !== null;
+            hasValue = firstSample.statistical_values.p95.value !== null;
+          if (input.value === "ci")
+            hasValue = firstSample.sample_data.df !== null;
           label.classList.toggle("hidden", !hasValue);
         });
         handleSingleOption(statsInputs);
