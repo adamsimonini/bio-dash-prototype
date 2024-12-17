@@ -4,39 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Biodash prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
     <style>
-      .filter-section {
-        margin: 20px 0;
-      }
-      .filter-group {
-        margin: 15px 0;
-      }
       .hidden {
         display: none;
       }
-      .chemical-group {
-        color: #666;
-        margin: 5px 0 20px 0;
-        font-size: 0.9em;
+      /* Customize Choices.js styling */
+      .choices {
+        margin-bottom: 1rem;
+        max-width: 100%;
       }
-      #group-filters {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+      /* Custom radio and checkbox styles */
+      input[type="radio"],
+      input[type="checkbox"] {
+        @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500;
       }
-      #group-filters label {
-        cursor: pointer;
+      label {
+        @apply flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors;
       }
     </style>
   </head>
-  <body>
-    <div class="filter-section">
-      <h1>Chemical selection</h1>
+  <body class="bg-gray-50 min-h-screen">
+    <div class="max-w-4xl mx-auto p-6">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8">Chemical selection</h1>
 
-      <div class="filter-group">
-        <h3>Chemical group</h3>
-        <p class="subtitle">Filter by chemical type (optional)</p>
-        <div id="group-filters">
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Chemical group</h3>
+        <p class="text-sm text-gray-600 mb-4">
+          Filter by chemical type (optional)
+        </p>
+        <div id="group-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <label
             ><input type="radio" name="group" value="" checked /> All
             groups</label
@@ -80,18 +81,23 @@
         </div>
       </div>
 
-      <div class="filter-group">
-        <label for="chemical-select">Select or type a chemical</label>
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <label
+          for="chemical-select"
+          class="block text-xl font-semibold text-gray-800 mb-2"
+        >
+          Select or type a chemical
+        </label>
         <select id="chemical-select">
           <option value="">Chemical biomarker</option>
         </select>
-        <div id="chemical-group" class="chemical-group"></div>
+        <div id="chemical-group" class="text-sm text-gray-600 mt-2"></div>
       </div>
 
-      <div class="filter-group">
-        <h3>Matrix</h3>
-        <p class="subtitle">Sampling medium</p>
-        <div id="matrix-filters">
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Matrix</h3>
+        <p class="text-sm text-gray-600 mb-4">Sampling medium</p>
+        <div id="matrix-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <label
             ><input type="radio" name="matrix" value="blood" /> Blood</label
           >
@@ -105,13 +111,16 @@
             ><input type="radio" name="matrix" value="pooled serum" /> Pooled
             serum</label
           >
+          <p class="hidden col-span-2 text-gray-500 italic">
+            No matrix options available
+          </p>
         </div>
       </div>
 
-      <div class="filter-group">
-        <h3>Units</h3>
-        <p class="subtitle">Measurement of sampling medium</p>
-        <div id="units-filters">
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Units</h3>
+        <p class="text-sm text-gray-600 mb-4">Measurement of sampling medium</p>
+        <div id="units-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <label><input type="radio" name="units" value="ug/L" /> ug/L</label>
           <label
             ><input type="radio" name="units" value="ug/g creatinine" /> ug/g
@@ -129,19 +138,30 @@
             ><input type="radio" name="units" value="ng/g serum" /> ng/g
             serum</label
           >
+          <p class="hidden col-span-2 text-gray-500 italic">
+            No unit options available
+          </p>
         </div>
       </div>
 
-      <div class="filter-group">
-        <h3>Collection period</h3>
-        <p class="subtitle">Sampling years to include</p>
-        <div id="period-filters"></div>
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+          Collection period
+        </h3>
+        <p class="text-sm text-gray-600 mb-4">Sampling years to include</p>
+        <div id="period-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <p class="hidden col-span-2 text-gray-500 italic">
+            No collection periods available
+          </p>
+        </div>
       </div>
 
-      <div class="filter-group">
-        <h3>Statistics</h3>
-        <p class="subtitle">Relevant demographics to include</p>
-        <div id="stats-filters">
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Statistics</h3>
+        <p class="text-sm text-gray-600 mb-4">
+          Relevant demographics to include
+        </p>
+        <div id="stats-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <label
             ><input type="radio" name="stats" value="gm" /> Geometric
             mean</label
@@ -158,29 +178,60 @@
             ><input type="radio" name="stats" value="ci" /> 95% confidence
             interval (95% CI)</label
           >
+          <p class="hidden col-span-2 text-gray-500 italic">
+            No statistics available
+          </p>
         </div>
       </div>
     </div>
 
     <div id="chemical-data"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="chemicals.js"></script>
     <script>
-      // Populate chemical dropdown
+      // Get the select element first
       const chemicalSelect = document.getElementById("chemical-select");
-      function populateChemicalDropdown(filteredChemicals) {
-        // Clear existing options except the first one
-        while (chemicalSelect.options.length > 1) {
-          chemicalSelect.remove(1);
-        }
 
-        // Add filtered chemicals
-        filteredChemicals.forEach((chem) => {
-          const option = document.createElement("option");
-          option.value = chem.chemical.name;
-          option.textContent = `${chem.chemical.name} (${chem.biomarker.name})`;
-          chemicalSelect.appendChild(option);
-        });
+      // Initialize Choices.js
+      const choices = new Choices(chemicalSelect, {
+        searchEnabled: true,
+        searchFields: ["label", "value"],
+        searchPlaceholderValue: "Type to search chemicals...",
+        placeholder: true,
+        placeholderValue: "Chemical biomarker",
+        removeItemButton: false,
+        itemSelectText: "",
+        sortFilter: function (a, b) {
+          // Keep original sort order
+          return 0;
+        },
+        customSearcher: function (content, searchText) {
+          // Convert both to lowercase for case-insensitive comparison
+          const contentLower = content.toLowerCase();
+          const searchLower = searchText.toLowerCase();
+
+          // Extract chemical name and biomarker name
+          const match = contentLower.match(/^(.+?)\s*\((.+?)\)$/);
+          if (!match) return false;
+
+          const [, chemicalName, biomarkerName] = match;
+
+          // Only match if search text appears at the start of either name
+          return (
+            chemicalName.startsWith(searchLower) ||
+            biomarkerName.startsWith(searchLower)
+          );
+        },
+      });
+
+      function populateChemicalDropdown(filteredChemicals) {
+        const options = filteredChemicals.map((chem) => ({
+          value: chem.chemical.name,
+          label: `${chem.chemical.name} (${chem.biomarker.name})`,
+        }));
+
+        choices.setChoices(options, "value", "label", true);
       }
 
       // Initial population with all chemicals
@@ -273,16 +324,32 @@
           }
         }
 
+        // Helper function to update "no options" message
+        function updateNoOptionsMessage(container, visibleCount) {
+          const message = container.querySelector("p");
+          if (message) {
+            message.classList.toggle("hidden", visibleCount > 0);
+          }
+        }
+
         // Update matrix filters
-        const matrixInputs = document.querySelectorAll("#matrix-filters input");
-        // Get unique matrices from all samples
+        const matrixInputs = document.querySelectorAll(
+          "#matrix-filters input[type='radio']"
+        );
         const matrices = [
           ...new Set(chemical.samples.map((sample) => sample.matrix)),
         ];
+        let visibleMatrixCount = 0;
         matrixInputs.forEach((input) => {
           const label = input.parentElement;
-          label.classList.toggle("hidden", !matrices.includes(input.value));
+          const isVisible = matrices.includes(input.value);
+          label.classList.toggle("hidden", !isVisible);
+          if (isVisible) visibleMatrixCount++;
         });
+        updateNoOptionsMessage(
+          document.getElementById("matrix-filters"),
+          visibleMatrixCount
+        );
         handleSingleOption(matrixInputs);
 
         // Update units filters
@@ -317,9 +384,13 @@
         // Create checkbox for each unique period
         periods.forEach((period) => {
           const label = document.createElement("label");
+          label.className =
+            "flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors";
           const input = document.createElement("input");
           input.type = "checkbox";
           input.value = period;
+          input.className =
+            "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500";
           label.appendChild(input);
           label.appendChild(document.createTextNode(` ${period}`));
           periodFiltersDiv.appendChild(label);
@@ -348,8 +419,8 @@
         handleSingleOption(statsInputs);
       }
 
-      // Handle chemical selection change
-      chemicalSelect.addEventListener("change", (e) => {
+      // Update chemical selection change handler
+      choices.passedElement.element.addEventListener("change", function (e) {
         const selectedChemical = chemicals.find(
           (chem) => chem.chemical.name === e.target.value
         );
