@@ -92,6 +92,11 @@
           <option value="">Chemical biomarker</option>
         </select>
         <div id="chemical-group" class="text-sm text-gray-600 mt-2"></div>
+        <div id="chemical-link" class="text-sm text-blue-600 mt-1">
+          <a href="" target="_blank" class="hidden hover:underline"
+            >More information about this chemical</a
+          >
+        </div>
       </div>
 
       <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -255,6 +260,11 @@
               // Reset to initial state when "All groups" is selected
               chemicalSelect.value = "";
               document.getElementById("chemical-group").textContent = "";
+              const linkElement = document
+                .getElementById("chemical-link")
+                .querySelector("a");
+              linkElement.classList.add("hidden");
+              linkElement.href = "";
 
               // Show all matrix options
               document
@@ -303,11 +313,33 @@
 
       // Update available filters based on selected chemical
       function updateAvailableFilters(chemical) {
-        if (!chemical) return;
+        if (!chemical) {
+          // Clear chemical group and link
+          const chemicalGroupDiv = document.getElementById("chemical-group");
+          chemicalGroupDiv.textContent = "";
+          const linkElement = document
+            .getElementById("chemical-link")
+            .querySelector("a");
+          linkElement.classList.add("hidden");
+          linkElement.href = "";
+          return;
+        }
 
         // Update chemical group display
         const chemicalGroupDiv = document.getElementById("chemical-group");
         chemicalGroupDiv.textContent = chemical ? chemical.chemical_group : "";
+
+        // Update chemical link
+        const linkElement = document
+          .getElementById("chemical-link")
+          .querySelector("a");
+        if (chemical.info_link) {
+          linkElement.href = chemical.info_link;
+          linkElement.classList.remove("hidden");
+        } else {
+          linkElement.classList.add("hidden");
+          linkElement.href = "";
+        }
 
         // Helper function to handle single option cases
         function handleSingleOption(inputs) {
