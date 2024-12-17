@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biodash prototype</title>
+    <style>
+      .filter-section {
+        margin: 20px 0;
+      }
+      .filter-group {
+        margin: 15px 0;
+      }
+      .hidden {
+        display: none;
+      }
+      .chemical-group {
+        color: #666;
+        margin: 5px 0 20px 0;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="filter-section">
+      <h1>Chemical selection</h1>
+
+      <div class="filter-group">
+        <label for="chemical-select">Select or type a chemical</label>
+        <select id="chemical-select">
+          <option value="">Chemical biomarker</option>
+        </select>
+        <div id="chemical-group" class="chemical-group"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Matrix</h3>
+        <p class="subtitle">Sampling medium</p>
+        <div id="matrix-filters">
+          <label><input type="checkbox" value="blood" /> Blood</label>
+          <label><input type="checkbox" value="urine" /> Urine</label>
+          <label><input type="checkbox" value="plasma" /> Plasma</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Units</h3>
+        <p class="subtitle">Measurement of sampling medium</p>
+        <div id="units-filters">
+          <label><input type="checkbox" value="ug/L" /> ug/L</label>
+          <label
+            ><input type="checkbox" value="ug/g creatinine" /> ug/g
+            creatinine</label
+          >
+          <label><input type="checkbox" value="ng/g lipid" /> ng/g lipid</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Collection period</h3>
+        <p class="subtitle">Sampling years to include</p>
+        <div id="period-filters"></div>
+      </div>
+
+      <div class="filter-group">
+        <h3>Statistics</h3>
+        <p class="subtitle">Relevant demographics to include</p>
+        <div id="stats-filters">
+          <label><input type="checkbox" value="gm" /> Geometric mean</label>
+          <label><input type="checkbox" value="p50" /> 50th percentile</label>
+          <label><input type="checkbox" value="p95" /> 95th percentile</label>
+          <label
+            ><input type="checkbox" value="ci" /> 95% confidence interval (95%
+            CI)</label
+          >
+        </div>
+      </div>
+    </div>
+
+    <div id="chemical-data"></div>
+
+    <script src="chemicals.js"></script>
+    <script>
+      // Populate chemical dropdown
+      const chemicalSelect = document.getElementById("chemical-select");
+      chemicals.forEach((chem) => {
+        const option = document.createElement("option");
+        option.value = chem.chemical.name;
+        option.textContent = `${chem.chemical.name} (${chem.biomarker.name})`;
+        chemicalSelect.appendChild(option);
+      });
+
+      // Update available filters based on selected chemical
+      function updateAvailableFilters(chemical) {
+        if (!chemical) return;
+
+        // Update chemical group display
+        const chemicalGroupDiv = document.getElementById("chemical-group");
+        chemicalGroupDiv.textContent = chemical ? chemical.chemical_group : "";
+
+        // Helper function to handle single option cases
+        function handleSingleOption(inputs) {
+          const visibleInputs = Array.from(inputs).filter(
+            (input) => !input.parentElement.classList.contains("hidden")
+          );
+
+          if (visibleInputs.length === 1) {
+            visibleInputs[0].checked = true;
+            visibleInputs[0].disabled = true;
+          } else {
+            inputs.forEach((input) => {
+              input.disabled = false;
+              input.checked = false;
+            });
+          }
+        }
+
+        // Update matrix filters
+        const matrixInputs = document.querySelectorAll("#matrix-filters input");
+        matrixInputs.forEach((input) => {
+          const label = input.parentElement;
+          label.classList.toggle("hidden", input.value !== chemical.matrix);
+        });
+        handleSingleOption(matrixInputs);
+
+        // Update units filters
+        const unitsInputs = document.querySelectorAll("#units-filters input");
+        unitsInputs.forEach((input) => {
+          const label = input.parentElement;
+          // Convert units for comparison
+          let chemicalUnit = chemical.measurement.units;
+          if (chemicalUnit === "µg As/L") chemicalUnit = "ug/L";
+          if (chemicalUnit === "µg/g creatinine")
+            chemicalUnit = "ug/g creatinine";
+          // Add more unit conversions as needed
+          chemicalUnit = chemicalUnit.replace("µg", "ug"); // Replace all µg with ug
+
+          label.classList.toggle("hidden", input.value !== chemicalUnit);
+        });
+        handleSingleOption(unitsInputs);
+
+        // Update period filters
+        const periodFiltersDiv = document.getElementById("period-filters");
+        // Clear existing period filters
+        periodFiltersDiv.innerHTML = "";
+        // Create checkbox for the chemical's cycle
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.value = chemical.chms_cycle_years;
+        label.appendChild(input);
+        label.appendChild(
+          document.createTextNode(` ${chemical.chms_cycle_years}`)
+        );
+        periodFiltersDiv.appendChild(label);
+
+        // Since there's only one period per chemical, always handle as single option
+        const periodInputs = document.querySelectorAll("#period-filters input");
+        handleSingleOption(periodInputs);
+
+        // Update stats filters
+        const statsInputs = document.querySelectorAll("#stats-filters input");
+        statsInputs.forEach((input) => {
+          const label = input.parentElement;
+          let hasValue = false;
+          if (input.value === "gm")
+            hasValue = chemical.statistical_values.gm.value !== null;
+          if (input.value === "p50")
+            hasValue = chemical.statistical_values.p50.value !== null;
+          if (input.value === "p95")
+            hasValue = chemical.statistical_values.p95.value !== null;
+          if (input.value === "ci") hasValue = chemical.sample_data.df !== null;
+          label.classList.toggle("hidden", !hasValue);
+        });
+        handleSingleOption(statsInputs);
+      }
+
+      // Handle chemical selection change
+      chemicalSelect.addEventListener("change", (e) => {
+        const selectedChemical = chemicals.find(
+          (chem) => chem.chemical.name === e.target.value
+        );
+        updateAvailableFilters(selectedChemical);
+      });
+    </script>
+  </body>
+</html>
