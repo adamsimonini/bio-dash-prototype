@@ -256,7 +256,8 @@
 
             populateChemicalDropdown(filteredChemicals);
 
-            if (selectedGroup === "") {
+            // Reset UI when "All groups" is selected or when multiple chemicals are available
+            if (selectedGroup === "" || filteredChemicals.length > 1) {
               // Reset to initial state when "All groups" is selected
               chemicalSelect.value = "";
               document.getElementById("chemical-group").textContent = "";
@@ -299,14 +300,11 @@
                     input.checked = false;
                   }
                 });
-            } else if (filteredChemicals.length === 1) {
+            } else {
+              // Only case left is when filteredChemicals.length === 1
               // If there's only one chemical in the group, select it automatically
               chemicalSelect.value = filteredChemicals[0].chemical.name;
               updateAvailableFilters(filteredChemicals[0]);
-            } else {
-              // Clear chemical selection and filters
-              chemicalSelect.value = "";
-              updateAvailableFilters(null);
             }
           });
         });
