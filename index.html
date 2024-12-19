@@ -254,12 +254,14 @@
                 )
               : chemicals;
 
-            populateChemicalDropdown(filteredChemicals);
+            // Clear the selected chemical and reset the dropdown
+            choices.clearStore(); // Clear all selections and choices
+            choices.setChoices([], "value", "label", true); // Reset choices to empty
+            populateChemicalDropdown(filteredChemicals); // Repopulate with filtered chemicals
 
             // Reset UI when "All groups" is selected or when multiple chemicals are available
             if (selectedGroup === "" || filteredChemicals.length > 1) {
               // Reset to initial state when "All groups" is selected
-              chemicalSelect.value = "";
               document.getElementById("chemical-group").textContent = "";
               const linkElement = document
                 .getElementById("chemical-link")
