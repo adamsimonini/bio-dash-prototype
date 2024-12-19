@@ -1,49 +1,54 @@
-// Get the select element first
-const chemicalSelect = document.getElementById("chemical-select");
+// Get the container for the chemical cards
+const chemicalCardsContainer = document.getElementById("chemical-cards");
 
-// Initialize Choices.js
-const choices = new Choices(chemicalSelect, {
-  searchEnabled: true,
-  searchFields: ["label", "value"],
-  searchPlaceholderValue: "Type to search chemicals...",
-  placeholder: true,
-  placeholderValue: "Chemical biomarker",
-  removeItemButton: false,
-  itemSelectText: "",
-  sortFilter: function (a, b) {
-    // Keep original sort order
-    return 0;
-  },
-  customSearcher: function (content, searchText) {
-    // Convert both to lowercase for case-insensitive comparison
-    const contentLower = content.toLowerCase();
-    const searchLower = searchText.toLowerCase();
+function createChemicalCard(chemical) {
+  const card = document.createElement("div");
+  card.className = "bg-white p-4 rounded-lg shadow-md relative border-l-4";
+  card.style.borderColor = chemical.highlight_colour;
 
-    // Extract chemical name and biomarker name
-    const match = contentLower.match(/^(.+?)\s*\((.+?)\)$/);
-    if (!match) return false;
+  const icon = document.createElement("i");
+  icon.className = `${chemical.chemical.icon} text-3xl text-gray-600 absolute top-2 right-2`;
 
-    const [, chemicalName, biomarkerName] = match;
+  const content = document.createElement("div");
 
-    // Only match if search text appears at the start of either name
-    return (
-      chemicalName.startsWith(searchLower) ||
-      biomarkerName.startsWith(searchLower)
-    );
-  },
-});
+  const title = document.createElement("h4");
+  title.className = "text-lg font-semibold text-gray-800";
+  title.textContent = chemical.chemical.layman_name;
 
-function populateChemicalDropdown(filteredChemicals) {
-  const options = filteredChemicals.map((chem) => ({
-    value: chem.chemical.name,
-    label: `${chem.chemical.name} (${chem.biomarker.name})`,
-  }));
+  const biomarker = document.createElement("p");
+  biomarker.className = "text-sm text-gray-600";
+  biomarker.innerHTML = `<strong>Biomarker:</strong> ${chemical.biomarker.name}`;
 
-  choices.setChoices(options, "value", "label", true);
+  const commonUses = document.createElement("p");
+  commonUses.className = "text-sm text-gray-600";
+  commonUses.innerHTML = `<strong>Common Uses:</strong> ${chemical.chemical.common_uses}`;
+
+  const link = document.createElement("a");
+  link.href = chemical.info_link;
+  link.className = "text-blue-500 hover:underline";
+  link.textContent = "More Info";
+
+  content.appendChild(title);
+  content.appendChild(biomarker);
+  content.appendChild(commonUses);
+  content.appendChild(link);
+
+  card.appendChild(icon);
+  card.appendChild(content);
+
+  return card;
 }
 
-// Initial population with all chemicals
-populateChemicalDropdown(chemicals);
+function displayChemicalCards(filteredChemicals) {
+  // Clear existing cards
+  chemicalCardsContainer.innerHTML = "";
+
+  // Create and append new cards
+  filteredChemicals.forEach((chemical) => {
+    const card = createChemicalCard(chemical);
+    chemicalCardsContainer.appendChild(card);
+  });
+}
 
 // Handle chemical group selection change
 document
@@ -52,13 +57,11 @@ document
     radio.addEventListener("change", (e) => {
       const selectedGroup = e.target.value;
       const filteredChemicals = selectedGroup
-        ? chemicals.filter((chem) => chem.chemical_group === selectedGroup)
+        ? chemicals.filter((chem) => chem.layman_group === selectedGroup)
         : chemicals;
 
-      // Clear the selected chemical and reset the dropdown
-      choices.clearStore(); // Clear all selections and choices
-      choices.setChoices([], "value", "label", true); // Reset choices to empty
-      populateChemicalDropdown(filteredChemicals); // Repopulate with filtered chemicals
+      // Display cards for the filtered chemicals
+      displayChemicalCards(filteredChemicals);
 
       // Reset UI when "All groups" is selected or when multiple chemicals are available
       if (selectedGroup === "" || filteredChemicals.length > 1) {
@@ -101,7 +104,6 @@ document
         // Only case left is when filteredChemicals.length === 1
         // If there's only one chemical in the group, select it automatically
         const singleChemical = filteredChemicals[0];
-        choices.setChoiceByValue(singleChemical.chemical.name); // Select the chemical in Choices.js
         updateAvailableFilters(singleChemical); // Ensure filters are updated
       }
     });
@@ -123,7 +125,7 @@ function updateAvailableFilters(chemical) {
 
   // Update chemical group display
   const chemicalGroupDiv = document.getElementById("chemical-group");
-  chemicalGroupDiv.textContent = chemical ? chemical.chemical_group : "";
+  chemicalGroupDiv.textContent = chemical ? chemical.layman_group : "";
 
   // Update chemical link
   const linkElement = document
@@ -245,11 +247,3 @@ function updateAvailableFilters(chemical) {
   });
   handleSingleOption(statsInputs);
 }
-
-// Update chemical selection change handler
-choices.passedElement.element.addEventListener("change", function (e) {
-  const selectedChemical = chemicals.find(
-    (chem) => chem.chemical.name === e.target.value
-  );
-  updateAvailableFilters(selectedChemical);
-});

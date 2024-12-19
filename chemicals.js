@@ -2,9 +2,14 @@ const chemicals = [
   {
     chemical_group: "metals and trace elements",
     layman_group: "Heavy Metals",
+    highlight_colour: "#B8B8B8",
     chemical: {
       name: "arsenic",
+      layman_name: "Arsenic",
       cas: "7440-38-2",
+      icon: "fas fa-battery-full",
+      common_uses:
+        "Historically used in pesticides, wood preservatives, and as a poison. It is also naturally occurring in groundwater in certain areas, leading to contamination concerns. Arsenic is highly toxic and carcinogenic.",
     },
     biomarker: {
       name: "monomethylarsonic acid (MMA)",
@@ -119,15 +124,20 @@ const chemicals = [
   {
     chemical_group: "metals and trace elements",
     layman_group: "Heavy Metals",
+    highlight_colour: "#B8B8B8",
     chemical: {
       name: "cadmium",
+      layman_name: "Cadmium",
       cas: "7440-43-9",
+      icon: "fas fa-battery-quarter",
+      common_uses:
+        "Used in the production of batteries (especially rechargeable batteries), in coatings, and in electroplating. Cadmium is also found in some plastics and pigments. It is toxic and can cause kidney damage and cancer with prolonged exposure.",
     },
     biomarker: {
       name: "cadmium",
       cas: "7440-43-9",
     },
-    info_link: "",
+    info_link: "https://en.wikipedia.org/wiki/Cadmium",
     notes: "",
     samples: [
       {
@@ -186,9 +196,14 @@ const chemicals = [
   {
     chemical_group: "plasticizers: phthalates",
     layman_group: "Plastics",
+    highlight_colour: "#3EB489",
     chemical: {
       name: "di-isononyl phthalate (DiNP)",
+      layman_name: "DiNP",
       cas: "28553-12-0",
+      icon: "fas fa-plug",
+      common_uses:
+        "Used as a plasticizer in flexible plastics, especially PVC. It is commonly found in products like flooring, food packaging, and children’s toys. It is considered a potential endocrine disruptor.",
     },
     biomarker: {
       name: "mono(carboxyisooctyl) phthalate (MCIOP)",
@@ -253,9 +268,14 @@ const chemicals = [
   {
     chemical_group: "polycyclic aromatic hydrocarbons (PAHs)",
     layman_group: "Combustion Byproducts",
+    highlight_colour: "#D32F2F",
     chemical: {
       name: "naphthalene",
+      layman_name: "Mothballs",
       cas: "91-20-3",
+      icon: "fas fa-cogs",
+      common_uses:
+        "Used as a component of mothballs and in the production of nylon.",
     },
     biomarker: {
       name: "2-hydroxynaphthalene",
@@ -320,9 +340,14 @@ const chemicals = [
   {
     chemical_group: "dioxins and furans",
     layman_group: "Pesticides",
+    highlight_colour: "#FF8C00",
     chemical: {
       name: "1,2,3,4,7,8-hexachlorodibenzo-p-dioxin (HxCDD)",
+      layman_name: "Dioxin",
       cas: "39227-28-6",
+      icon: "fas fa-trash-alt",
+      common_uses:
+        "Primarily produced as a byproduct of industrial processes like waste incineration and pesticide manufacturing. It is a persistent environmental pollutant and a potent toxin.",
     },
     biomarker: {
       name: "1,2,3,4,7,8-hexachlorodibenzo-p-dioxin (HxCDD)",
@@ -376,15 +401,21 @@ const chemicals = [
         high: null,
       },
     },
-    info_link: "",
+    info_link:
+      "https://pubchem.ncbi.nlm.nih.gov/compound/1_2_3_6_7_8-Hexachlorodibenzo-P-dioxin",
     notes: "",
   },
   {
     chemical_group: "polychlorinated biphenyls (PCBs)",
-    laymanCategory: "Plastics",
+    layman_group: "Plastics",
+    highlight_colour: "#3EB489",
     chemical: {
       name: "2,2',4,4',5-pentachlorobiphenyl (PCB 99)",
+      layman_name: "Polychlorinated Biphenyl (PCB)",
       cas: "38380-01-7",
+      icon: "fas fa-industry",
+      common_uses:
+        "Historically used as a dielectric fluid in transformers, capacitors, and other electrical equipment. PCBs were also used in paints, plastics, and pesticides before being banned due to their environmental toxicity and health risks.",
     },
     biomarker: {
       name: "2,2',4,4',5-pentachlorobiphenyl (PCB 99)",
@@ -438,7 +469,8 @@ const chemicals = [
         high: null,
       },
     },
-    info_link: "",
+    info_link:
+      "https://pubchem.ncbi.nlm.nih.gov/compound/1_2_4-trichloro-5-_2_4-dichlorophenyl_benzene",
     notes: "",
   },
 ];

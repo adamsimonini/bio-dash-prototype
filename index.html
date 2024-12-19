@@ -9,100 +9,47 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
     />
-    <style>
-      .hidden {
-        display: none;
-      }
-      /* Customize Choices.js styling */
-      .choices {
-        margin-bottom: 1rem;
-        max-width: 100%;
-      }
-      /* Custom radio and checkbox styles */
-      input[type="radio"],
-      input[type="checkbox"] {
-        @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500;
-      }
-      label {
-        @apply flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body class="bg-gray-50 min-h-screen">
-    <div class="max-w-4xl mx-auto p-6">
-      <h1 class="text-3xl font-bold text-gray-900 mb-8">Chemical selection</h1>
+    <div class="container mx-auto p-4">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8">
+        Biomonitoring Dashbaord Basic View Prototype
+      </h1>
 
-      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Chemical group</h3>
         <p class="text-sm text-gray-600 mb-4">
           Filter by chemical type (optional)
         </p>
-        <div id="group-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div id="group-filters" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <label><input type="radio" name="group" value="" /> All groups</label>
           <label
-            ><input type="radio" name="group" value="" checked /> All
-            groups</label
+            ><input type="radio" name="group" value="Heavy Metals" /> Heavy
+            Metals</label
           >
           <label
-            ><input
-              type="radio"
-              name="group"
-              value="metals and trace elements"
-            />
-            Metals and trace elements</label
+            ><input type="radio" name="group" value="Pesticides" />
+            Pesticides</label
           >
           <label
-            ><input
-              type="radio"
-              name="group"
-              value="plasticizers: phthalates"
-            />
-            Plasticizers: phthalates</label
+            ><input type="radio" name="group" value="Plastics" />
+            Plastics</label
           >
-          <label
-            ><input
-              type="radio"
-              name="group"
-              value="polycyclic aromatic hydrocarbons (PAHs)"
-            />
-            Polycyclic aromatic hydrocarbons (PAHs)</label
-          >
-          <label
-            ><input type="radio" name="group" value="dioxins and furans" />
-            Dioxins and furans</label
-          >
-          <label
-            ><input
-              type="radio"
-              name="group"
-              value="polychlorinated biphenyls (PCBs)"
-            />
-            Polychlorinated biphenyls (PCBs)</label
-          >
+          <!-- Add more layman groups as needed -->
         </div>
       </div>
 
-      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
-        <label
-          for="chemical-select"
-          class="block text-xl font-semibold text-gray-800 mb-2"
-        >
-          Select or type a chemical
-        </label>
-        <select id="chemical-select">
-          <option value="">Chemical biomarker</option>
-        </select>
-        <div id="chemical-group" class="text-sm text-gray-600 mt-2"></div>
-        <div id="chemical-link" class="text-sm text-blue-600 mt-1">
-          <a href="" target="_blank" class="hidden hover:underline"
-            >More information about this chemical</a
-          >
-        </div>
+      <!-- Container for chemical cards -->
+      <div id="chemical-cards" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <!-- Cards will be dynamically inserted here -->
       </div>
 
-      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <!-- <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Matrix</h3>
         <p class="text-sm text-gray-600 mb-4">Sampling medium</p>
-        <div id="matrix-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div id="matrix-filters" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <label
             ><input type="radio" name="matrix" value="blood" /> Blood</label
           >
@@ -120,12 +67,12 @@
             No matrix options available
           </p>
         </div>
-      </div>
+      </div> -->
 
-      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <!-- <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Units</h3>
         <p class="text-sm text-gray-600 mb-4">Measurement of sampling medium</p>
-        <div id="units-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div id="units-filters" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <label><input type="radio" name="units" value="ug/L" /> ug/L</label>
           <label
             ><input type="radio" name="units" value="ug/g creatinine" /> ug/g
@@ -147,26 +94,26 @@
             No unit options available
           </p>
         </div>
-      </div>
+      </div> -->
 
-      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <!-- <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
         <h3 class="text-xl font-semibold text-gray-800 mb-2">
           Collection period
         </h3>
         <p class="text-sm text-gray-600 mb-4">Sampling years to include</p>
-        <div id="period-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div id="period-filters" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <p class="hidden col-span-2 text-gray-500 italic">
             No collection periods available
           </p>
         </div>
-      </div>
+      </div> -->
 
-      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <!-- <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Statistics</h3>
         <p class="text-sm text-gray-600 mb-4">
           Relevant demographics to include
         </p>
-        <div id="stats-filters" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div id="stats-filters" class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <label
             ><input type="radio" name="stats" value="gm" /> Geometric
             mean</label
@@ -188,7 +135,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div id="chemical-data"></div>
 
