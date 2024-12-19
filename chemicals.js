@@ -1,6 +1,7 @@
 const chemicals = [
   {
     chemical_group: "metals and trace elements",
+    layman_group: "Heavy Metals",
     chemical: {
       name: "arsenic",
       cas: "7440-38-2",
@@ -117,6 +118,7 @@ const chemicals = [
   },
   {
     chemical_group: "metals and trace elements",
+    layman_group: "Heavy Metals",
     chemical: {
       name: "cadmium",
       cas: "7440-43-9",
@@ -183,6 +185,7 @@ const chemicals = [
   // Keep all other chemicals as they are for now
   {
     chemical_group: "plasticizers: phthalates",
+    layman_group: "Plastics",
     chemical: {
       name: "di-isononyl phthalate (DiNP)",
       cas: "28553-12-0",
@@ -249,6 +252,7 @@ const chemicals = [
   },
   {
     chemical_group: "polycyclic aromatic hydrocarbons (PAHs)",
+    layman_group: "Combustion Byproducts",
     chemical: {
       name: "naphthalene",
       cas: "91-20-3",
@@ -315,6 +319,7 @@ const chemicals = [
   },
   {
     chemical_group: "dioxins and furans",
+    layman_group: "Pesticides",
     chemical: {
       name: "1,2,3,4,7,8-hexachlorodibenzo-p-dioxin (HxCDD)",
       cas: "39227-28-6",
@@ -376,6 +381,7 @@ const chemicals = [
   },
   {
     chemical_group: "polychlorinated biphenyls (PCBs)",
+    laymanCategory: "Plastics",
     chemical: {
       name: "2,2',4,4',5-pentachlorobiphenyl (PCB 99)",
       cas: "38380-01-7",
