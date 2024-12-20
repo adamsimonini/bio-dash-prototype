@@ -17,7 +17,7 @@ function createChemicalCard(chemical) {
 
   const biomarker = document.createElement("p");
   biomarker.className = "text-sm text-gray-600";
-  biomarker.innerHTML = `<strong>Biomarker:</strong> ${chemical.biomarker.name}`;
+  biomarker.innerHTML = `<strong>Technical name:</strong> ${chemical.biomarker.name}`;
 
   const commonUses = document.createElement("p");
   commonUses.className = "text-sm text-gray-600";
