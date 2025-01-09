@@ -3,8 +3,17 @@ const chemicalCardsContainer = document.getElementById("chemical-cards");
 
 function createChemicalCard(chemical) {
   const card = document.createElement("div");
-  card.className = "bg-white p-4 rounded-lg shadow-md relative border-l-4";
+  card.className =
+    "bg-white p-4 rounded-lg shadow-md relative border-l-4 cursor-pointer transition-all duration-200";
   card.style.borderColor = chemical.highlight_colour;
+
+  // Add hover effect for outline
+  card.addEventListener("mouseenter", () => {
+    card.style.outline = "2px solid #4A90E2"; // Example outline color
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.outline = "none";
+  });
 
   const icon = document.createElement("i");
   icon.className = `${chemical.chemical.icon} text-3xl text-gray-600 absolute top-2 right-2`;
@@ -17,7 +26,7 @@ function createChemicalCard(chemical) {
 
   const biomarker = document.createElement("p");
   biomarker.className = "text-sm text-gray-600";
-  biomarker.innerHTML = `<strong>Technical name:</strong> ${chemical.biomarker.name}`;
+  biomarker.innerHTML = `<strong>Biomarker:</strong> ${chemical.biomarker.name}`;
 
   const commonUses = document.createElement("p");
   commonUses.className = "text-sm text-gray-600";
@@ -35,6 +44,9 @@ function createChemicalCard(chemical) {
 
   card.appendChild(icon);
   card.appendChild(content);
+
+  // Add click event listener to display infographic
+  card.addEventListener("click", () => displayInfographic(chemical));
 
   return card;
 }
@@ -246,4 +258,59 @@ function updateAvailableFilters(chemical) {
     label.classList.toggle("hidden", !hasValue);
   });
   handleSingleOption(statsInputs);
+}
+
+function displayInfographic(chemical) {
+  const resultsSection = document.getElementById("chemical-data");
+  resultsSection.innerHTML = ""; // Clear previous content
+
+  const infographic = document.createElement("div");
+  infographic.className = "bg-white p-4 rounded-lg shadow-md";
+
+  const title = document.createElement("h3");
+  title.className = "text-xl font-semibold text-gray-800 mb-2";
+  title.textContent = `Infographic for ${chemical.chemical.layman_name}`;
+
+  const stats = document.createElement("ul");
+  stats.className = "list-disc pl-5";
+
+  const gm = document.createElement("li");
+  gm.textContent = `Geometric Mean: ${
+    chemical.samples[0].statistical_values.gm.value || "N/A"
+  }`;
+
+  const p50 = document.createElement("li");
+  p50.textContent = `50th Percentile: ${
+    chemical.samples[0].statistical_values.p50.value || "N/A"
+  }`;
+
+  const p95 = document.createElement("li");
+  p95.textContent = `95th Percentile: ${
+    chemical.samples[0].statistical_values.p95.value || "N/A"
+  }`;
+
+  const routesOfExposure = document.createElement("li");
+  routesOfExposure.textContent = `Common Routes of Exposure: ${chemical.common_routes_of_exposure}`;
+
+  const illnesses = document.createElement("li");
+  illnesses.textContent = `Common Illnesses Related to Exposure: ${chemical.common_illnesses_related_to_exposure}`;
+
+  const symptoms = document.createElement("li");
+  symptoms.textContent = `Common Symptoms of Exposure: ${chemical.common_symptoms_of_exposure}`;
+
+  const reduceExposure = document.createElement("li");
+  reduceExposure.textContent = `Steps to Reduce Exposure: ${chemical.steps_to_reduce_exposure}`;
+
+  stats.appendChild(gm);
+  stats.appendChild(p50);
+  stats.appendChild(p95);
+  stats.appendChild(routesOfExposure);
+  stats.appendChild(illnesses);
+  stats.appendChild(symptoms);
+  stats.appendChild(reduceExposure);
+
+  infographic.appendChild(title);
+  infographic.appendChild(stats);
+
+  resultsSection.appendChild(infographic);
 }

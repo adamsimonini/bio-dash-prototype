@@ -17,6 +17,14 @@ const chemicals = [
     },
     info_link: "https://en.wikipedia.org/wiki/Tetrabromobisphenol_A",
     notes: "",
+    common_routes_of_exposure:
+      "Inhalation of dust during electronic recycling, ingestion of contaminated dust or food.",
+    common_illnesses_related_to_exposure:
+      "Endocrine disruption, neurodevelopmental issues in children.",
+    common_symptoms_of_exposure:
+      "Hormonal imbalances, reduced fertility, fatigue.",
+    steps_to_reduce_exposure:
+      "Avoid handling e-waste directly, use air purifiers in areas with high dust levels.",
     samples: [
       {
         matrix: "blood",
@@ -78,7 +86,7 @@ const chemicals = [
       name: "hexabromocyclododecane (HBCD)",
       layman_name: "HBCD",
       cas: "25637-99-4",
-      icon: "fas fa-shield-alt",
+      icon: "fas fa-fire-extinguisher",
       common_uses:
         "Used as a flame retardant in building insulation materials and textiles.",
     },
@@ -88,6 +96,14 @@ const chemicals = [
     },
     info_link: "https://en.wikipedia.org/wiki/Hexabromocyclododecane",
     notes: "",
+    common_routes_of_exposure:
+      "Inhalation of insulation dust, ingestion of contaminated food or water.",
+    common_illnesses_related_to_exposure:
+      "Liver toxicity, reproductive issues.",
+    common_symptoms_of_exposure:
+      "Liver dysfunction, hormonal changes, dizziness.",
+    steps_to_reduce_exposure:
+      "Ensure proper handling of building materials, avoid consuming fish from contaminated areas.",
     samples: [
       {
         matrix: "serum",
@@ -160,6 +176,13 @@ const chemicals = [
     info_link:
       "https://www.canada.ca/en/health-canada/services/environmental-workplace-health/reports-publications/environmental-contaminants/human-biomonitoring-resources/arsenic-canadians.html",
     notes: "",
+    common_routes_of_exposure:
+      "Inhalation of dust, ingestion of contaminated food.",
+    common_illnesses_related_to_exposure:
+      "Thyroid dysfunction, developmental issues.",
+    common_symptoms_of_exposure: "Fatigue, headache, skin irritation.",
+    steps_to_reduce_exposure:
+      "Use air purifiers, avoid products with flame retardants.",
     samples: [
       {
         matrix: "urine",
@@ -281,6 +304,13 @@ const chemicals = [
     },
     info_link: "https://en.wikipedia.org/wiki/Cadmium",
     notes: "",
+    common_routes_of_exposure:
+      "Inhalation of dust, ingestion of contaminated food.",
+    common_illnesses_related_to_exposure:
+      "Thyroid dysfunction, developmental issues.",
+    common_symptoms_of_exposure: "Fatigue, headache, skin irritation.",
+    steps_to_reduce_exposure:
+      "Use air purifiers, avoid products with flame retardants.",
     samples: [
       {
         matrix: "blood",
@@ -343,7 +373,7 @@ const chemicals = [
       name: "di-isononyl phthalate (DiNP)",
       layman_name: "DiNP",
       cas: "28553-12-0",
-      icon: "fas fa-plug",
+      icon: "fas fa-recycle",
       common_uses:
         "Used as a plasticizer in flexible plastics, especially PVC. It is commonly found in products like flooring, food packaging, and children’s toys. It is considered a potential endocrine disruptor.",
     },
@@ -354,6 +384,13 @@ const chemicals = [
     info_link:
       "https://www.canada.ca/en/health-canada/services/environmental-workplace-health/reports-publications/environmental-contaminants/sixth-report-human-biomonitoring/page-5.html#s14-1",
     notes: "",
+    common_routes_of_exposure:
+      "Inhalation of dust, ingestion of contaminated food.",
+    common_illnesses_related_to_exposure:
+      "Thyroid dysfunction, developmental issues.",
+    common_symptoms_of_exposure: "Fatigue, headache, skin irritation.",
+    steps_to_reduce_exposure:
+      "Use air purifiers, avoid products with flame retardants.",
     samples: [
       {
         matrix: "urine",
@@ -426,6 +463,13 @@ const chemicals = [
     info_link:
       "https://www.canada.ca/en/health-canada/services/environmental-workplace-health/reports-publications/environmental-contaminants/human-biomonitoring-resources/polycyclic-aromatic-hydrocarbons-in-people.html",
     notes: "",
+    common_routes_of_exposure:
+      "Inhalation of dust, ingestion of contaminated food.",
+    common_illnesses_related_to_exposure:
+      "Thyroid dysfunction, developmental issues.",
+    common_symptoms_of_exposure: "Fatigue, headache, skin irritation.",
+    steps_to_reduce_exposure:
+      "Use air purifiers, avoid products with flame retardants.",
     samples: [
       {
         matrix: "urine",
@@ -487,7 +531,7 @@ const chemicals = [
       name: "1,2,3,4,7,8-hexachlorodibenzo-p-dioxin (HxCDD)",
       layman_name: "Dioxin",
       cas: "39227-28-6",
-      icon: "fas fa-trash-alt",
+      icon: "fas fa-bug",
       common_uses:
         "Primarily produced as a byproduct of industrial processes like waste incineration and pesticide manufacturing. It is a persistent environmental pollutant and a potent toxin.",
     },
@@ -555,7 +599,7 @@ const chemicals = [
       name: "2,2',4,4',5-pentachlorobiphenyl (PCB 99)",
       layman_name: "Polychlorinated Biphenyl (PCB)",
       cas: "38380-01-7",
-      icon: "fas fa-industry",
+      icon: "fas fa-recycle",
       common_uses:
         "Historically used as a dielectric fluid in transformers, capacitors, and other electrical equipment. PCBs were also used in paints, plastics, and pesticides before being banned due to their environmental toxicity and health risks.",
     },
