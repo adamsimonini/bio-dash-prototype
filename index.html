@@ -3,45 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Biodash prototype</title>
+    <title>Biodash Prototype</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
     />
-    <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body class="bg-gray-50 min-h-screen">
     <div class="container mx-auto p-4">
       <h1 class="text-3xl font-bold text-gray-900 mb-8">
-        Biomonitoring Dashbaord Basic View Prototype
+        Biomonitoring Dashboard Basic View Prototype
       </h1>
 
       <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">Step 1</h2>
-        <h3 class="text-l font-semibold text-gray-800 mb-2">Select a chemical grouping of interest</h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Select a chemical grouping of interest</h3>
         <div id="group-filters" class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <label><input type="radio" name="group" value="" /> All groups</label>
-          <label
-            ><input type="radio" name="group" value="Heavy Metals" /> Heavy
-            Metals</label
-          >
-          <label
-            ><input type="radio" name="group" value="Pesticides" />
-            Pesticides</label
-          >
-          <label
-            ><input type="radio" name="group" value="Plastics" />
-            Plastics</label
-          >
+          <label class="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors">
+            <input type="radio" name="group" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" /> All groups
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors">
+            <input type="radio" name="group" value="Heavy Metals" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" /> Heavy Metals
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors">
+            <input type="radio" name="group" value="Pesticides" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" /> Pesticides
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer hover:text-blue-600 transition-colors">
+            <input type="radio" name="group" value="Plastics" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" /> Plastics
+          </label>
           <!-- Add more layman groups as needed -->
         </div>
       </div>
 
       <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">Step 2</h2>
-        <h3 class="text-l font-semibold text-gray-800 mb-2">Select a chemical see what data we have on it</h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Select a chemical to see what data we have on it</h3>
         <div id="chemical-cards" class="grid grid-cols-1 md:grid-cols-2 gap-2">
         </div>
       </div>
