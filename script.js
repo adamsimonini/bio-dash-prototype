@@ -332,3 +332,17 @@ function displayInfographic(chemical) {
 
   resultsSection.appendChild(infographic);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const groupFilters = document.querySelectorAll(
+    "#group-filters input[type='radio']"
+  );
+  const resultsSection = document.getElementById("chemical-data");
+
+  groupFilters.forEach((filter) => {
+    filter.addEventListener("change", () => {
+      // Clear the info card when a new group is selected
+      resultsSection.innerHTML = "";
+    });
+  });
+});
