@@ -1,5 +1,147 @@
 const chemicals = [
   {
+    chemical_group: "flame retardants",
+    layman_group: "Flame Retardants",
+    highlight_colour: "#FF4500", // Example color
+    chemical: {
+      name: "tetrabromobisphenol A (TBBPA)",
+      layman_name: "TBBPA",
+      cas: "79-94-7",
+      icon: "fas fa-fire-extinguisher",
+      common_uses:
+        "Used as a flame retardant in plastics, especially in electronic equipment and circuit boards.",
+    },
+    biomarker: {
+      name: "tetrabromobisphenol A (TBBPA)",
+      cas: "79-94-7",
+    },
+    info_link: "https://en.wikipedia.org/wiki/Tetrabromobisphenol_A",
+    notes: "",
+    samples: [
+      {
+        matrix: "blood",
+        age_range: "20 to 39",
+        group: "total",
+        chms_cycle_years: "5 (2016–2017)",
+        sample_data: {
+          number_pools: null,
+          pct_less_lod_pooled: null,
+          minimum: null,
+          maximum: null,
+          mean: null,
+          mean_cv: null,
+          number_samples: 150,
+          pct_less_lod: 30.5,
+          df: "NA",
+          gm: "0.5 (0.3–0.7)",
+          percentiles: {
+            p10: "0.2 (0.1–0.3)",
+            p50: "0.5 (0.4–0.6)",
+            p90: "1.0 (0.8–1.2)",
+            p95: "1.5 (1.2–1.8)",
+          },
+        },
+        measurement: {
+          lod: 0.1,
+          units: "µg/L",
+        },
+        metadata: {
+          number: 12345,
+          content_type: "individual_results",
+          data_type: "byage",
+        },
+        statistical_values: {
+          gm: {
+            value: 0.5,
+            low: 0.3,
+            high: 0.7,
+          },
+          p50: {
+            value: 0.5,
+            low: 0.4,
+            high: 0.6,
+          },
+          p95: {
+            value: 1.5,
+            low: 1.2,
+            high: 1.8,
+          },
+        },
+      },
+    ],
+  },
+  {
+    chemical_group: "flame retardants",
+    layman_group: "Flame Retardants",
+    highlight_colour: "#FF4500", // Example color
+    chemical: {
+      name: "hexabromocyclododecane (HBCD)",
+      layman_name: "HBCD",
+      cas: "25637-99-4",
+      icon: "fas fa-shield-alt",
+      common_uses:
+        "Used as a flame retardant in building insulation materials and textiles.",
+    },
+    biomarker: {
+      name: "hexabromocyclododecane (HBCD)",
+      cas: "25637-99-4",
+    },
+    info_link: "https://en.wikipedia.org/wiki/Hexabromocyclododecane",
+    notes: "",
+    samples: [
+      {
+        matrix: "serum",
+        age_range: "40 to 59",
+        group: "total",
+        chms_cycle_years: "6 (2018–2019)",
+        sample_data: {
+          number_pools: null,
+          pct_less_lod_pooled: null,
+          minimum: null,
+          maximum: null,
+          mean: null,
+          mean_cv: null,
+          number_samples: 200,
+          pct_less_lod: 45.0,
+          df: "NA",
+          gm: "0.8 (0.6–1.0)",
+          percentiles: {
+            p10: "0.3 (0.2–0.4)",
+            p50: "0.8 (0.7–0.9)",
+            p90: "1.5 (1.3–1.7)",
+            p95: "2.0 (1.8–2.2)",
+          },
+        },
+        measurement: {
+          lod: 0.2,
+          units: "ng/g lipid",
+        },
+        metadata: {
+          number: 67890,
+          content_type: "individual_results",
+          data_type: "byage",
+        },
+        statistical_values: {
+          gm: {
+            value: 0.8,
+            low: 0.6,
+            high: 1.0,
+          },
+          p50: {
+            value: 0.8,
+            low: 0.7,
+            high: 0.9,
+          },
+          p95: {
+            value: 2.0,
+            low: 1.8,
+            high: 2.2,
+          },
+        },
+      },
+    ],
+  },
+  {
     chemical_group: "metals and trace elements",
     layman_group: "Heavy Metals",
     highlight_colour: "#B8B8B8",
